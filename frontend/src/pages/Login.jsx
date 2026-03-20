@@ -44,55 +44,76 @@ function Login() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-                    Login
-                </h2>
+        <div
+            className="min-h-screen flex items-center justify-end px-8 bg-cover bg-center relative"
+            style={{
+                backgroundImage:
+                    "url('https://img.freepik.com/premium-photo/online-fashion-shopping-with-computer_23-2150400628.jpg')",
+            }}
+        >
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/50"></div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        type="text"
-                        name="username"
-                        value={form.username}
-                        onChange={handleChange}
-                        placeholder="Username"
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
+            {/* Content */}
+            <div className="relative w-full max-w-md">
 
-                    <input
-                        type="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        placeholder="Password"
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
+                {/* Brand */}
+                <h1 className="text-3xl font-bold text-white text-center mb-6">
+                    Shoppy 🛍️
+                </h1>
 
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200 font-semibold"
-                    >
-                        Login
-                    </button>
-                </form>
+                {/* Login Card */}
+                <div className="bg-white p-8 rounded-xl shadow-xl">
+                    
+                    <h2 className="text-xl font-semibold text-gray-800 mb-6 text-center">
+                        Sign in to your account
+                    </h2>
 
-                {msg && (
-                    <p className="mt-4 text-center text-sm text-red-500">
-                        {msg}
-                    </p>
-                )}
+                    <form onSubmit={handleSubmit} className="space-y-4">
 
-                <div className="mt-6 text-center text-sm text-gray-600">
-                    Don't have an account?{" "}
-                    <a
-                        href="/signup"
-                        className="text-blue-600 hover:underline font-medium"
-                    >
-                        Sign Up
-                    </a>
+                        <input
+                            type="text"
+                            name="username"
+                            value={form.username}
+                            onChange={handleChange}
+                            placeholder="Username"
+                            required
+                            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        />
+
+                        <input
+                            type="password"
+                            name="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            placeholder="Password"
+                            required
+                            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                        />
+
+                        <button
+                            type="submit"
+                            className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-2 rounded-md transition duration-200"
+                        >
+                            Sign In
+                        </button>
+                    </form>
+
+                    {msg && (
+                        <p className="mt-4 text-center text-sm text-red-500">
+                            {msg}
+                        </p>
+                    )}
+
+                    <div className="mt-6 text-center text-sm text-gray-600">
+                        New customer?{" "}
+                        <a
+                            href="/signup"
+                            className="text-indigo-600 hover:underline font-medium"
+                        >
+                            Create your account
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

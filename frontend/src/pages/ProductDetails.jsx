@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 
-
 function ProductDetails() {
     const { id } = useParams(); // get product ID from URL
     const BASEURL = import.meta.env.VITE_DJANGO_BASE_URL;
@@ -10,10 +9,10 @@ function ProductDetails() {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const {addToCart} = useCart();
+    const { addToCart } = useCart();
 
     useEffect(() => {
-        fetch(`${BASEURL}/product/${id}/`) // make sure Django endpoint exists
+        fetch(`${BASEURL}/product/${id}/`) 
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Failed to fetch product");
@@ -32,31 +31,33 @@ function ProductDetails() {
 
     if (loading) {
         return (
-            <p className="text-center text-gray-600 mt-10">
-                Loading product...
-            </p>
+            <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-50 via-pink-50 to-yellow-50">
+                <p className="text-xl font-semibold text-gray-600 animate-pulse">
+                    Loading product...
+                </p>
+            </div>
         );
     }
 
     if (error) {
         return (
-            <p className="text-center text-red-600 mt-10">
-                {error}
-            </p>
+            <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-50 via-pink-50 to-yellow-50">
+                <p className="text-xl font-semibold text-red-600">{error}</p>
+            </div>
         );
     }
 
     if (!product) {
         return (
-            <p className="text-center text-gray-600 mt-10">
-                Product not found
-            </p>
+            <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-50 via-pink-50 to-yellow-50">
+                <p className="text-xl font-semibold text-gray-600">Product not found</p>
+            </div>
         );
     }
 
-    const handleAddToCart=() =>{
-        if(!localStorage.getItem('access_token')){
-            window.location.href='/login';
+    const handleAddToCart = () => {
+        if (!localStorage.getItem('access_token')) {
+            window.location.href = '/login';
             return;
         }
 
@@ -64,19 +65,30 @@ function ProductDetails() {
     }
 
     return (
-        <div className="max-w-3xl mx-auto p-4 bg-white rounded-xl shadow-md mt-10">
-            <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-64 object-cover rounded-xl"
-            />
-            <div className="flex-1">
-                <h1 className="text-2xl font-bold mt-4">{product.name}</h1>
-                <p className="text-gray-600 mt-2">{product.description}</p>
-                <p className="text-gray-900 font-bold text-xl mt-3">${product.price}</p>
-                <button onClick={handleAddToCart} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Add to cart button</button>
-                <div className="mt-4">
-                    <a href="/" className="text-blue-600 hover: underline"> &larr; Back to home</a>
+        <div className="min-h-screen bg-gradient-to-r from-purple-50 via-pink-50 to-yellow-50 py-12 px-4">
+            <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-105">
+                <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-96 object-cover"
+                />
+                <div className="p-6 md:p-8">
+                    <h1 className="text-4xl font-extrabold text-gray-800 mb-4">{product.name}</h1>
+                    <p className="text-gray-700 mb-4">{product.description}</p>
+                    <p className="text-gray-900 font-bold text-2xl mb-6">${product.price}</p>
+
+                    <button 
+                        onClick={handleAddToCart} 
+                        className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:from-pink-500 hover:to-purple-500 transition duration-300"
+                    >
+                        Add to Cart
+                    </button>
+
+                    <div className="mt-6">
+                        <a href="/" className="text-blue-600 hover:underline flex items-center">
+                            &larr; Back to Home
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,29 +96,3 @@ function ProductDetails() {
 }
 
 export default ProductDetails;
-
-
-
-
-
-
-
-
-
-// import { Link } from "react-router-dom";
-
-// function ProductDetails({product}){
-//     const BASEURL= import.meta.env.VITE_DJANGO_BASE_URL;
-
-//     return(
-//         <link to={`/product/${product.id}`}>
-//             <img src={`${BASURL}${product.image}`} alt={product.name} />
-
-//             <h2>{product.name}</h2>
-//             <p>${product.price}</p>
-//             <p>{product.description}</p>
-//         </link>
-//     );
-// }
-
-// export default ProductDetails

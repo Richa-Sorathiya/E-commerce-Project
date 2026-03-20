@@ -33,98 +33,113 @@ function Signup() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    username: form.username,
-                    email: form.email,
-                    password: form.password,
-                    password2: form.password2,
-
-                }),
+                body: JSON.stringify(form),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                setMsg("Account created successfully! Redirecting to login...");
-                setTimeout(() => {
-                    navigate("/login");
-                }, 1200);
+                setMsg("Account created successfully! Redirecting...");
+                setTimeout(() => navigate("/login"), 1200);
             } else {
                 setMsg(data.username || data.password || JSON.stringify(data));
             }
         } catch (error) {
-            setMsg("Signop failed");
+            setMsg("Signup failed");
             console.error(error);
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-                    Create Account
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-200 via-pink-200 to-yellow-200 px-4">
+            <div className="w-full max-w-md bg-white backdrop-blur-md bg-opacity-80 p-8 rounded-3xl shadow-2xl border border-gray-200 animate-fadeIn">
+                <h2 className="text-3xl font-extrabold text-center mb-6 text-gray-800">
+                    Create Your Account
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        type="text"
-                        name="username"
-                        value={form.username}
-                        onChange={handleChange}
-                        placeholder="Username"
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* Username */}
+                    <div className="relative">
+                        <input
+                            type="text"
+                            name="username"
+                            value={form.username}
+                            onChange={handleChange}
+                            placeholder="Username"
+                            required
+                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none transition duration-200"
+                        />
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">👤</span>
+                    </div>
 
-                    <input
-                        type="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        placeholder="Email"
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
+                    {/* Email */}
+                    <div className="relative">
+                        <input
+                            type="email"
+                            name="email"
+                            value={form.email}
+                            onChange={handleChange}
+                            placeholder="Email"
+                            required
+                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none transition duration-200"
+                        />
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">📧</span>
+                    </div>
 
-                    <input
-                        type="password"
-                        name="password"
-                        value={form.password}
-                        onChange={handleChange}
-                        placeholder="Password"
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
+                    {/* Password */}
+                    <div className="relative">
+                        <input
+                            type="password"
+                            name="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            placeholder="Password"
+                            required
+                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none transition duration-200"
+                        />
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔒</span>
+                    </div>
 
-                    <input
-                        type="password"
-                        name="password2"
-                        value={form.password2}
-                        onChange={handleChange}
-                        placeholder="Confirm Password"
-                        required
-                        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    />
+                    {/* Confirm Password */}
+                    <div className="relative">
+                        <input
+                            type="password"
+                            name="password2"
+                            value={form.password2}
+                            onChange={handleChange}
+                            placeholder="Confirm Password"
+                            required
+                            className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none transition duration-200"
+                        />
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">🔒</span>
+                    </div>
 
+                    {/* Submit Button */}
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200 font-semibold"
+                        className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-2xl transition duration-200"
                     >
                         Sign Up
                     </button>
                 </form>
 
+                {/* Message */}
                 {msg && (
-                    <p className="mt-4 text-center text-sm text-red-500">
+                    <p
+                        className={`mt-4 text-center text-sm font-medium ${
+                            msg.includes("successfully") ? "text-green-600" : "text-red-500"
+                        }`}
+                    >
                         {msg}
                     </p>
                 )}
 
+                {/* Login Link */}
                 <div className="mt-6 text-center text-sm text-gray-600">
                     Already have an account?{" "}
                     <a
                         href="/login"
-                        className="text-blue-600 hover:underline font-medium"
+                        className="text-purple-600 hover:underline font-medium"
                     >
                         Login
                     </a>
